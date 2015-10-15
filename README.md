@@ -1,4 +1,4 @@
-#The Swift Style Guide for Wordpress Mobile apps
+#The Objective-C Style Guide for Wordpress Mobile apps
 So you want to write some code for WordPress for iOS. That’s nice, thanks a lot. But before that take some minutes to read some tips that will probably make everyone’s life easier. Much of this guide is adapted from [Google's Objective-C Style Guide](http://google-styleguide.googlecode.com/svn/trunk/objcguide.xml). You should read that as well as [Apple's Coding Guidelines for Cocoa](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CodingGuidelines/CodingGuidelines.html).
 
 ## Before You Commit

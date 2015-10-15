@@ -22,7 +22,7 @@ Methods should look like this:
 ```objective-c
 - (void)doSomethingWithString:(NSString *)theString
 {
-  ...
+    ...
 }
 ```
 
@@ -33,7 +33,7 @@ If you have more than one parameter, giving each its own line is preferred. If m
                    rect:(NSRect)theRect
                interval:(float)theInterval
 {
-  ...
+    ...
 }
 ```
 
@@ -70,7 +70,7 @@ There should not be a space between the type identifier and the name of the prot
 This applies to class declarations, instance variables, and method declarations. For example:
 ```objective-c
 @interface MyProtocoledClass : NSObject<NSWindowDelegate> {
-  id<MyFancyDelegate> _delegate;
+    id<MyFancyDelegate> _delegate;
 }
 - (void)setDelegate:(id<MyFancyDelegate>)aDelegate;
 @end
@@ -102,7 +102,7 @@ There are several appropriate style rules, depending on how long the block is:
 dispatch_async(_fileIOQueue, ^{
     NSString* path = [self sessionFilePath];
     if (path) {
-      // ...
+        // ...
     }
 });
 
@@ -112,9 +112,9 @@ dispatch_async(_fileIOQueue, ^{
 [[SessionService sharedService]
     loadWindowWithCompletionBlock:^(SessionWindow *window) {
         if (window) {
-          [self windowDidLoad:window];
+            [self windowDidLoad:window];
         } else {
-          [self errorLoadingWindow];
+            [self errorLoadingWindow];
         }
     }];
 
@@ -131,23 +131,23 @@ When writing code that needs braces we generally want the brace on a new line ra
 ```objective-c
 // Bad
 - (void)someMethod {
-  // Do something
+    // Do something
 }
 
 // Good
 - (void)someMethod
 {
- // Do something
+    // Do something
 }
 
 // Good
 if (condition) {
-  // Do something
+    // Do something
 }
 
 // Good
 for (int i=0; i < len; i++) {
-  // Do something
+    // Do something
 }
 ```
 
@@ -157,19 +157,19 @@ When writing if statements, make sure to use a curly brace even if it's a one li
 ```objective-c
 // Good
 if (someValue != nil) {
-  [self doSomething];
+    [self doSomething];
 }
 
 // Good
 if (someReallyLongVariableName != nil
     && someOtherLongVariableName != nil)
 {
-  [self doSomething];
+    [self doSomething];
 }
 
 // Bad
 if (someValue != nil)
-  [self doSomething];
+    [self doSomething];
 ```
 
 ### Ternary Operators
@@ -179,10 +179,10 @@ Be cautious about using the ternary operator as it can make code very difficult 
 ```objective-c
 
 // Good
-  int minVal = (a < b) ? a : b
+    int minVal = (a < b) ? a : b
 
 // Bad
-  [self.view addSubview:((currentlyVisibleView == self.photoSelectorView) ? self.textEditorView : self.photoSelectorView)];
+    [self.view addSubview:((currentlyVisibleView == self.photoSelectorView) ? self.textEditorView : self.photoSelectorView)];
 
 ```
 
@@ -212,12 +212,12 @@ Any class, category, method, or variable name may use all capitals for initialis
 ```objective-c
 - (void)displayWebsite:(NSURL *)websiteURL
 {
-  ...
+    ...
 }
 
 - (void)displayWebsite:(NSString *)websiteUrl
 {
-  ...
+    ...
 }
 ```
 
@@ -285,7 +285,7 @@ Every interface, category, and protocol declaration should have an accompanying 
 // A delegate for NSApplication to handle notifications about app
 // launch and shutdown. Owned by the main app controller.
 @interface MyAppDelegate : NSObject {
-  ...
+    ...
 }
 @end
 ```
@@ -334,34 +334,34 @@ Subclasses have not yet been initialized or have already deallocated when _init_
 
 - (id)init
 {
-  self = [super init];
-  if (self) {
-    _bar = [[NSMutableString alloc] init];
-  }
-  return self;
+    self = [super init];
+    if (self) {
+        _bar = [[NSMutableString alloc] init];
+    }
+    return self;
 }
 
 - (void)dealloc
 {
-  [_bar release];
-  [super dealloc];
+    [_bar release];
+    [super dealloc];
 }
 
 // Avoid
 
 - (id)init
 {
-  self = [super init];
-  if (self) {
-    self.bar = [NSMutableString string];
-  }
-  return self;
+    self = [super init];
+    if (self) {
+        self.bar = [NSMutableString string];
+    }
+    return self;
 }
 
 - (void)dealloc
 {
-  self.bar = nil;
-  [super dealloc];
+    self.bar = nil;
+    [super dealloc];
 }
 ```
 ###Setters copy NSStrings
@@ -372,8 +372,8 @@ Never just retain the string. This avoids the caller changing it under you witho
 ```objective-c
 - (void)setFoo:(NSString *)aFoo
 {
-  [_foo autorelease];
-  _foo = [aFoo copy];
+    [_foo autorelease];
+    _foo = [aFoo copy];
 }
 ```
 
@@ -396,25 +396,25 @@ Using logical operators (_&&_, _||_ and _!_) with _BOOL_ is also valid and will 
 
 - (BOOL)isBold
 {
-  return [self fontTraits] & NSFontBoldTrait;
+    return [self fontTraits] & NSFontBoldTrait;
 }
 - (BOOL)isValid
 {
-  return [self stringValue];
+    return [self stringValue];
 }
 
 // Good
 - (BOOL)isBold
 {
-  return ([self fontTraits] & NSFontBoldTrait) ? YES : NO;
+    return ([self fontTraits] & NSFontBoldTrait) ? YES : NO;
 }
 - (BOOL)isValid
 {
-  return [self stringValue] != nil;
+    return [self stringValue] != nil;
 }
 - (BOOL)isEnabled
 {
-  return [self isValid] && [self isBold];
+    return [self isValid] && [self isBold];
 }
 ```
 Also, don't directly compare _BOOL_ variables directly with _YES_. Not only is it harder to read for those well-versed in C, the first point above demonstrates that return values may not always be what you expect.
@@ -422,12 +422,12 @@ Also, don't directly compare _BOOL_ variables directly with _YES_. Not only is i
 // Bad
 BOOL great = [foo isGreat];
 if (great == YES)
-  // ...be great!
+    // ...be great!
 
 //Good
 BOOL great = [foo isGreat];
 if (great)
-  // ...be great!
+    // ...be great!
 ```
 ### Properties
 Use of the _@property_ directive is preferred. Dot notation is allowed only for access to a declared @property.
@@ -446,7 +446,7 @@ A property's declaration must come immediately after the instance variable block
 
 - (id)init
 {
-  ...
+    ...
 }
 @end
 ```
@@ -493,8 +493,8 @@ NSNumber literals are used just like Objective C string literals. Boxing is used
 NSNumber *fortyTwo = @42;
 NSNumber *piOverTwo = @(M_PI / 2);
 typedef NS_ENUM(NSUInteger, MyEnum) {
-  MyEnumOne,
-  MyEnumTwo = 2,
+    MyEnumOne,
+    MyEnumTwo = 2,
 };
 NSNumber *myEnum = @(MyEnumTwo);
 

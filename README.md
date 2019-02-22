@@ -22,7 +22,7 @@ Methods should look like this:
 ```objective-c
 - (void)doSomethingWithString:(NSString *)theString
 {
-...
+    ...
 }
 ```
 
@@ -30,10 +30,10 @@ If you have more than one parameter, giving each its own line is preferred. If m
 
 ```objective-c
 - (void)doSomethingWith:(GTMFoo *)theFoo
-rect:(NSRect)theRect
-interval:(float)theInterval
+                   rect:(NSRect)theRect
+               interval:(float)theInterval
 {
-...
+    ...
 }
 ```
 
@@ -47,22 +47,22 @@ or have one argument per line, with colons aligned:
 
 ```objective-c
 [myObject doFooWith:arg1
-name:arg2
-error:arg3];
+               name:arg2
+              error:arg3];
 ```
 
 Don't use any of these styles:
 
 ```objective-c
 [myObject doFooWith:arg1 name:arg2  // some lines with >1 arg
-error:arg3];
+              error:arg3];
 
 [myObject doFooWith:arg1
-name:arg2 error:arg3];
+               name:arg2 error:arg3];
 
 [myObject doFooWith:arg1
-name:arg2  // aligning keywords instead of colons
-error:arg3];
+          name:arg2  // aligning keywords instead of colons
+          error:arg3];
 ```
 
 ### Protocols
@@ -70,7 +70,7 @@ There should not be a space between the type identifier and the name of the prot
 This applies to class declarations, instance variables, and method declarations. For example:
 ```objective-c
 @interface MyProtocoledClass : NSObject<NSWindowDelegate> {
-id<MyFancyDelegate> _delegate;
+    id<MyFancyDelegate> _delegate;
 }
 - (void)setDelegate:(id<MyFancyDelegate>)aDelegate;
 @end
@@ -94,33 +94,33 @@ There are several appropriate style rules, depending on how long the block is:
 // closing brace aligned with the first character of the line on which
 // block was declared.
 [operation setCompletionBlock:^{
-[self.delegate newDataAvailable];
+    [self.delegate newDataAvailable];
 }];
 
 // Using a block with a C API follows the same alignment and spacing
 // rules as with Objective-C.
 dispatch_async(_fileIOQueue, ^{
-NSString* path = [self sessionFilePath];
-if (path) {
-// ...
-}
+    NSString* path = [self sessionFilePath];
+    if (path) {
+        // ...
+    }
 });
 
 // An example where the parameter wraps and the block declaration fits
 // on the same line. Note the spacing of |^(SessionWindow *window) {|
 // compared to |^{| above.
 [[SessionService sharedService]
-loadWindowWithCompletionBlock:^(SessionWindow *window) {
-if (window) {
-[self windowDidLoad:window];
-} else {
-[self errorLoadingWindow];
-}
-}];
+    loadWindowWithCompletionBlock:^(SessionWindow *window) {
+        if (window) {
+            [self windowDidLoad:window];
+        } else {
+            [self errorLoadingWindow];
+        }
+    }];
 
 // Large blocks can be declared out-of-line.
 void (^largeBlock)(void) = ^{
-// ...
+    // ...
 };
 [_operationQueue addOperationWithBlock:largeBlock];
 ```
@@ -131,23 +131,23 @@ When writing code that needs braces we generally want the brace on a new line ra
 ```objective-c
 // Bad
 - (void)someMethod {
-// Do something
+    // Do something
 }
 
 // Good
 - (void)someMethod
 {
-// Do something
+    // Do something
 }
 
 // Good
 if (condition) {
-// Do something
+    // Do something
 }
 
 // Good
 for (int i=0; i < len; i++) {
-// Do something
+    // Do something
 }
 ```
 
@@ -157,19 +157,19 @@ When writing if statements, make sure to use a curly brace even if it's a one li
 ```objective-c
 // Good
 if (someValue != nil) {
-[self doSomething];
+    [self doSomething];
 }
 
 // Good
 if (someReallyLongVariableName != nil
-&& someOtherLongVariableName != nil)
+    && someOtherLongVariableName != nil)
 {
-[self doSomething];
+    [self doSomething];
 }
 
 // Bad
 if (someValue != nil)
-[self doSomething];
+    [self doSomething];
 ```
 
 ### Ternary Operators
@@ -179,10 +179,10 @@ Be cautious about using the ternary operator as it can make code very difficult 
 ```objective-c
 
 // Good
-int minVal = (a < b) ? a : b
+    int minVal = (a < b) ? a : b
 
 // Bad
-[self.view addSubview:((currentlyVisibleView == self.photoSelectorView) ? self.textEditorView : self.photoSelectorView)];
+    [self.view addSubview:((currentlyVisibleView == self.photoSelectorView) ? self.textEditorView : self.photoSelectorView)];
 
 ```
 
@@ -205,19 +205,19 @@ Don't declare a series of variables on one line but rather split them up into in
 ## Naming
 Naming rules are very important in maintainable code. Objective-C method names tend to be very long, but this has the benefit that a block of code can almost read like prose, thus rendering many comments unnecessary.
 
-When writing pure Objective-C code, we mostly follow standard [Objective-C naming rules](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CodingGuidelines/CodingGuidelines.html#//apple_ref/doc/uid/10000146-SW1).
+When writing pure Objective-C code, we mostly follow standard [Objective-C naming rules](http://developer.apple.com/documentation/Cocoa/Conceptual/CodingGuidelines/CodingGuidelines.html).
 
 Any class, category, method, or variable name may use all capitals for initialisms within the name. This follows Apple's standard of using all capitals within a name for initialisms such as URL, TIFF, and EXIF. An exception to this is when passing a URL as a _NSString_ we prefer to not to use all capitals. The reason for this is that a non all capitalized URL stands out as more obvious that the variable in question is a _NSString_ instead of a _NSURL_.
 
 ```objective-c
 - (void)displayWebsite:(NSURL *)websiteURL
 {
-...
+    ...
 }
 
 - (void)displayWebsite:(NSString *)websiteUrl
 {
-...
+    ...
 }
 ```
 
@@ -263,15 +263,15 @@ tickets = [[NSMutableArray alloc] init];
 userInfo = [someObject object];
 port = [network port];
 ```
-**Instance Variables**
+**Instance Variables**  
 Instance variables are mixed case and should be prefixed with an underscore e.g. *_usernameTextField*.
 
 ### Comments
 Though a pain to write, they are absolutely vital to keeping our code readable. The following rules describe what you should comment and where. But remember: while comments are very important, the best code is self-documenting. Giving sensible names to types and variables is much better than using obscure names and then trying to explain them through comments.  
 
-When writing your comments, write for your audience: the next contributor who will need to understand your code. Be generous—the next one may be you!
+When writing your comments, write for your audience: the next contributor who will need to understand your code. Be generous—the next one may be you!  
 
-**File Comments**
+**File Comments**  
 A file may optionally start with a description of its contents.
 Every file should contain the following items, in order:
 * GPL License
@@ -279,19 +279,19 @@ Every file should contain the following items, in order:
 
 If you make significant changes to a file with an author line, consider deleting the author line since revision history already provides a more detailed and accurate record of authorship.
 
-**Declaration Comments**
+**Declaration Comments**  
 Every interface, category, and protocol declaration should have an accompanying comment describing its purpose and how it fits into the larger picture.
 ```objective-c
 // A delegate for NSApplication to handle notifications about app
 // launch and shutdown. Owned by the main app controller.
 @interface MyAppDelegate : NSObject {
-...
+    ...
 }
 @end
 ```
-If you have already described an interface in detail in the comments at the top of your file feel free to simply state "See comment at top of file for a complete description", but be sure to have some sort of comment.
+If you have already described an interface in detail in the comments at the top of your file feel free to simply state "See comment at top of file for a complete description", but be sure to have some sort of comment.  
 
-Additionally, each method in the public interface should have a comment explaining its function, arguments, return value, and any side effects.
+Additionally, each method in the public interface should have a comment explaining its function, arguments, return value, and any side effects.  
 
 Document the synchronization assumptions the class makes, if any. If an instance of the class can be accessed by multiple threads, take extra care to document the rules and invariants surrounding multithreaded use.
 
@@ -312,7 +312,7 @@ All memory for a newly allocated object is initialized to _0_ (except for isa), 
 Keep your class simple; avoid "kitchen-sink" APIs. If a method doesn't need to be public, don't make it so.  
 
 ### Use Root Frameworks
-Include root frameworks over individual files.
+Include root frameworks over individual files.  
 
 While it may seem tempting to include individual system headers from a framework such as Cocoa or Foundation, in fact it's less work on the compiler if you include the top-level root framework. The root framework is generally pre-compiled and can be loaded much more quickly. In addition, remember to use #import rather than #include for Objective-C frameworks.
 ```objective-c
@@ -334,46 +334,46 @@ Subclasses have not yet been initialized or have already deallocated when _init_
 
 - (id)init
 {
-self = [super init];
-if (self) {
-_bar = [[NSMutableString alloc] init];
-}
-return self;
+    self = [super init];
+    if (self) {
+        _bar = [[NSMutableString alloc] init];
+    }
+    return self;
 }
 
 - (void)dealloc
 {
-[_bar release];
-[super dealloc];
+    [_bar release];
+    [super dealloc];
 }
 
 // Avoid
 
 - (id)init
 {
-self = [super init];
-if (self) {
-self.bar = [NSMutableString string];
-}
-return self;
+    self = [super init];
+    if (self) {
+        self.bar = [NSMutableString string];
+    }
+    return self;
 }
 
 - (void)dealloc
 {
-self.bar = nil;
-[super dealloc];
+    self.bar = nil;
+    [super dealloc];
 }
 ```
 ### Setters copy NSStrings
 Setters taking an _NSString_, should always copy the string it accepts.  
 
-Never just retain the string. This avoids the caller changing it under you without your knowledge. Don't assume that because you're accepting an _NSString_ that it's not actually an _NSMutableString_.
+Never just retain the string. This avoids the caller changing it under you without your knowledge. Don't assume that because you're accepting an _NSString_ that it's not actually an _NSMutableString_.  
 
 ```objective-c
 - (void)setFoo:(NSString *)aFoo
 {
-[_foo autorelease];
-_foo = [aFoo copy];
+    [_foo autorelease];
+    _foo = [aFoo copy];
 }
 ```
 
@@ -385,9 +385,9 @@ Use _nil_ checks for logic flow of the application, not for crash prevention. Se
 ### BOOL Pitfalls
 Be careful when converting general integral values to _BOOL_. Avoid comparing directly with _YES_.  
 
-_BOOL_ is defined as a signed char in Objective-C which means that it can have values other than _YES_ (1) and _NO_ (0). Do not cast or convert general integral values directly to _BOOL_. Common mistakes include casting or converting an array's size, a pointer value, or the result of a bitwise logic operation to a _BOOL_ which, depending on the value of the last byte of the integral result, could still result in a _NO_ value. When converting a general integral value to a _BOOL_ use ternary operators to return a _YES_ or _NO_ value.
+_BOOL_ is defined as a signed char in Objective-C which means that it can have values other than _YES_ (1) and _NO_ (0). Do not cast or convert general integral values directly to _BOOL_. Common mistakes include casting or converting an array's size, a pointer value, or the result of a bitwise logic operation to a _BOOL_ which, depending on the value of the last byte of the integral result, could still result in a _NO_ value. When converting a general integral value to a _BOOL_ use ternary operators to return a _YES_ or _NO_ value.  
 
-You can safely interchange and convert _BOOL_, *_Bool* and _bool_ (see C++ Std 4.7.4, 4.12 and C99 Std 6.3.1.2). You cannot safely interchange _BOOL_ and _Boolean_ so treat _Booleans_ as a general integral value as discussed above. Only use _BOOL_ in Objective C method signatures.
+You can safely interchange and convert _BOOL_, *_Bool* and _bool_ (see C++ Std 4.7.4, 4.12 and C99 Std 6.3.1.2). You cannot safely interchange _BOOL_ and _Boolean_ so treat _Booleans_ as a general integral value as discussed above. Only use _BOOL_ in Objective C method signatures.  
 
 Using logical operators (_&&_, _||_ and _!_) with _BOOL_ is also valid and will return values that can be safely converted to _BOOL_ without the need for a ternary operator.
 
@@ -396,25 +396,25 @@ Using logical operators (_&&_, _||_ and _!_) with _BOOL_ is also valid and will 
 
 - (BOOL)isBold
 {
-return [self fontTraits] & NSFontBoldTrait;
+    return [self fontTraits] & NSFontBoldTrait;
 }
 - (BOOL)isValid
 {
-return [self stringValue];
+    return [self stringValue];
 }
 
 // Good
 - (BOOL)isBold
 {
-return ([self fontTraits] & NSFontBoldTrait) ? YES : NO;
+    return ([self fontTraits] & NSFontBoldTrait) ? YES : NO;
 }
 - (BOOL)isValid
 {
-return [self stringValue] != nil;
+    return [self stringValue] != nil;
 }
 - (BOOL)isEnabled
 {
-return [self isValid] && [self isBold];
+    return [self isValid] && [self isBold];
 }
 ```
 Also, don't directly compare _BOOL_ variables directly with _YES_. Not only is it harder to read for those well-versed in C, the first point above demonstrates that return values may not always be what you expect.
@@ -422,19 +422,19 @@ Also, don't directly compare _BOOL_ variables directly with _YES_. Not only is i
 // Bad
 BOOL great = [foo isGreat];
 if (great == YES)
-// ...be great!
+    // ...be great!
 
 //Good
 BOOL great = [foo isGreat];
 if (great)
-// ...be great!
+    // ...be great!
 ```
 ### Properties
 Use of the _@property_ directive is preferred. Dot notation is allowed only for access to a declared @property.
 
 Use of automatically synthesized instance variables is preferred.
 
-**Location**
+**Location**  
 
 A property's declaration must come immediately after the instance variable block of a class interface. A property's definition (if not using automatic synthesis) must come immediately after the _@implementation_ block in a class definition. They are indented at the same level as the _@interface_ or _@implementation_ statements that they are enclosed in.
 ```objective-c
@@ -446,16 +446,16 @@ A property's declaration must come immediately after the instance variable block
 
 - (id)init
 {
-...
+    ...
 }
 @end
 ```
-**Use Copy Attribute For Strings**
-NSString properties should always be declared with the _copy_ attribute.
+**Use Copy Attribute For Strings**  
+NSString properties should always be declared with the _copy_ attribute.  
 
-This logically follows from the requirement that setters for NSStrings always must use _copy_ instead of _retain_.
+This logically follows from the requirement that setters for NSStrings always must use _copy_ instead of _retain_.  
 
-**Dot notation**
+**Dot notation**  
 Dot notation is idiomatic style for Objective-C 2.0. It may be used when doing simple operations to get and set a _@property_ of an object, but should not be used to invoke other object behavior.
 ```objective-c
 // Good
@@ -493,8 +493,8 @@ NSNumber literals are used just like Objective C string literals. Boxing is used
 NSNumber *fortyTwo = @42;
 NSNumber *piOverTwo = @(M_PI / 2);
 typedef NS_ENUM(NSUInteger, MyEnum) {
-MyEnumOne,
-MyEnumTwo = 2,
+    MyEnumOne,
+    MyEnumTwo = 2,
 };
 NSNumber *myEnum = @(MyEnumTwo);
 
@@ -528,4 +528,3 @@ extern NSString * const BlogJetpackErrorDomain;
 //  Blog+Jetpack.m
 NSString * const BlogJetpackErrorDomain = @"BlogJetpackError";
 ```
-
